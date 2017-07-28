@@ -3,13 +3,19 @@ package by.education.sorting.isunique;
 public class IsUniqueRunner {
 
 	// ASCII or Unicode string?
-	private final static String DATA = "abcd";
+	private final static String UNIQUE_CHARACTERS_IN_STRING = "abcd";
+	private final static String DUPLICATED_CHARACTERS_IN_STRING = "abcad";
+	
 
 	public static void main(String[] args) {
 
-		boolean result = new IsUniqueRunner().isUniqueCharacter(DATA);
-
-		System.out.println(result);
+		//boolean result = new IsUniqueRunner().isUniqueCharacter(DATA);
+		
+		boolean result = new IsUniqueRunner().isStringHoldsUniqueCharacters(UNIQUE_CHARACTERS_IN_STRING);
+		System.out.println(UNIQUE_CHARACTERS_IN_STRING + ": " + result);
+		
+		result = new IsUniqueRunner().isStringHoldsUniqueCharacters(DUPLICATED_CHARACTERS_IN_STRING);		
+		System.out.println(DUPLICATED_CHARACTERS_IN_STRING + ": " + result);
 	}
 
 	private boolean isUniqueCharacter(String str) {
@@ -41,4 +47,31 @@ public class IsUniqueRunner {
 		return result;
 	}
 
+	/**
+	 * My implementation.
+	 * 
+	 * @param str
+	 * @return
+	 */
+	private boolean isStringHoldsUniqueCharacters(String str) {
+		
+		if(str.length() > 128) {
+			return false;
+		}
+		
+		boolean[] char_array = new boolean[128];
+		
+		return str.chars().noneMatch(characterCode -> isCharacterNonUnique(characterCode, char_array));
+	}
+	
+	private boolean isCharacterNonUnique(int characterCode, boolean[] char_array) {
+		
+		if(char_array[characterCode]) {
+			return true;
+		}
+		
+		char_array[characterCode] = true;
+		
+		return false;
+	}
 }
