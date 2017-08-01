@@ -12,10 +12,13 @@ public class IsUniqueRunner {
 		//boolean result = new IsUniqueRunner().isUniqueCharacter(DATA);
 		
 		boolean result = new IsUniqueRunner().isStringHoldsUniqueCharacters(UNIQUE_CHARACTERS_IN_STRING);
-		System.out.println(UNIQUE_CHARACTERS_IN_STRING + ": " + result);
+		System.out.println("(" + UNIQUE_CHARACTERS_IN_STRING + "): " + result);
 		
 		result = new IsUniqueRunner().isStringHoldsUniqueCharacters(DUPLICATED_CHARACTERS_IN_STRING);		
-		System.out.println(DUPLICATED_CHARACTERS_IN_STRING + ": " + result);
+		System.out.println("(" + DUPLICATED_CHARACTERS_IN_STRING + "): " + result);
+		
+		result = new IsUniqueRunner().isStringHoldsUniqueCharactersBySortingItems(DUPLICATED_CHARACTERS_IN_STRING);		
+		System.out.println("By sorting (" + DUPLICATED_CHARACTERS_IN_STRING + "): " + result);
 	}
 
 	private boolean isUniqueCharacter(String str) {
@@ -73,5 +76,18 @@ public class IsUniqueRunner {
 		char_array[characterCode] = true;
 		
 		return false;
+	}
+	
+	private boolean isStringHoldsUniqueCharactersBySortingItems(String str) {
+		
+		int[] symbols = {-1};		
+		
+		return str.chars().sorted().noneMatch(x -> {
+			boolean result = (x == symbols[0]);
+			
+			symbols[0] = x;
+			
+			return result;			
+		});
 	}
 }
